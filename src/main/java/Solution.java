@@ -63,6 +63,10 @@ public class Solution implements Runnable{
 				if (index != -1) {
 					numOfPartition++;
 					left = input.substring(0, index);
+				}else{
+					//there is no combination in the input (left) which is a power of 5. will will stop the recursion at this point
+					left = "";
+					numOfPartition = 0;
 				}
 			}
 			return getMin(left);
