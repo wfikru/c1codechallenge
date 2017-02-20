@@ -10,12 +10,14 @@ import main.java.Solution;
 public class SolutionTest {
 
     Solution solution;
+    Thread thread;
     public SolutionTest(){}
 
     @Before
     public void setUp()
     {
-        solution = new Solution();
+    	solution = new Solution();
+    	thread = new Thread(solution);    	
     }
 
     @After
@@ -24,75 +26,105 @@ public class SolutionTest {
     }
 
     @Test
-    public void test1()
+    public void test1() throws InterruptedException
     {
         String input = "101";
-        assertEquals(1, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(1, solution.getNumOfPartition());
     }
 
     @Test
-    public void test2()
+    public void test2() throws InterruptedException
     {
         String input = "101101101";
-        assertEquals(3, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(3, solution.getNumOfPartition());
     }
 
     @Test
-    public void test3()
+    public void test3() throws InterruptedException
     {
         String input = "1111101";
-        assertEquals(1, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(1, solution.getNumOfPartition());
     }
 
     @Test
-    public void test4(){
+    public void test4() throws InterruptedException{
         String input = "00000";
-        assertEquals(-1, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(-1, solution.getNumOfPartition());
     }
 
     @Test
-    public void test5(){
+    public void test5() throws InterruptedException{
         String input = "11111111111111111111111111111111111111111111111111";
-        assertEquals(50, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(50, solution.getNumOfPartition());
     }
 
     @Test
-    public void test6(){
+    public void test6() throws InterruptedException{
         String input = "10110001101000101011110000101110110001010";
-        assertEquals(-1, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(-1, solution.getNumOfPartition());
     }
 
     @Test
-    public void test7(){
+    public void test7() throws InterruptedException{
         String input = "10110001101000101011110000101110110001011";
-        assertEquals(2, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(2, solution.getNumOfPartition());
     }
 
     @Test
-    public void test8(){
+    public void test8() throws InterruptedException{
         String input = "111011100110101100101110111";
-        assertEquals(5, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(5, solution.getNumOfPartition());
     }
 
     @Test
-    public void test9(){
+    public void test9() throws InterruptedException{
         String input = "001000";
-        assertEquals(-1, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(-1, solution.getNumOfPartition());
     }
 
     @Test
-    public void test10(){
+    public void test10() throws InterruptedException{
         String input = "000001";
-        assertEquals(-1, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(-1, solution.getNumOfPartition());
     }
 
     @Test
-    public void test11(){
+    public void test11() throws InterruptedException{
         String input = "110111110101111000011";
-        assertEquals(3, solution.getMin(input));
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(500);
+        assertEquals(3, solution.getNumOfPartition());
     }
-
-
-
 
 }

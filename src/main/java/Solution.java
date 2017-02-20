@@ -10,11 +10,12 @@ import java.util.regex.*;
  * @author Fikru
  *
  */
-public class Solution {
+public class Solution implements Runnable{
 	
-	static String regex = "[10]*(10+1)";
-	static int numOfPartition = 0;
-	static Pattern pattern;
+	private String regex = "[10]*(10+1)";
+	private Pattern pattern;
+	private volatile int numOfPartition;
+	private volatile String input;
 	
 	public Solution(){
 		pattern = Pattern.compile(regex);
@@ -29,12 +30,14 @@ public class Solution {
 	 * splits the string in to a matched(left) and unmatched(right) sections.
 	 * if the right section are all '1s', the count will add to numOfPartition
 	 * it then looks for the index of a power of 5 sequence using the left section and the last match from the left section.
+	 * synchronized for concurrent access
 	 * @param input
 	 * @return
 	 */
-	public static int getMin(String input) {
+	public synchronized int getMin(String input) {
 		if(input == null || input.equals("") || input.charAt(0) == '0' || input.charAt(input.length() - 1) == '0'){
-			return -1;
+			if(numOfPartition == 0){ numOfPartition -= 1;}
+			return numOfPartition;
 		}else if (isPowerOfFive(input)) {
 			return numOfPartition++;
 		} else {
@@ -54,6 +57,7 @@ public class Solution {
 					numOfPartition += right.length();
 				}
 			} else {
+				//find the index of a power of five sequence
 				String lastMatchedGroup = matcher.group(matcher.groupCount());
 				int index = indexFinder(left, lastMatchedGroup);
 				if (index != -1) {
@@ -69,7 +73,7 @@ public class Solution {
 	 * @param str
 	 * @return
 	 */
-	public static boolean isPowerOfFive(String str) {
+	public boolean isPowerOfFive(String str) {
 		long decimal = binaryToDecimal(str);
 		int x = (int) (Math.log(decimal) / Math.log(5));
 		if (decimal == Math.pow(5, x)) {
@@ -82,7 +86,7 @@ public class Solution {
 	 * @param str
 	 * @return
 	 */
-	public static long binaryToDecimal(String str) {
+	public long binaryToDecimal(String str) {
 		long n = 0;
 		for (int i = 0; i < str.length(); i++) {
 			if (str.charAt(i) == '1') {
@@ -99,7 +103,7 @@ public class Solution {
 	 * @param match
 	 * @return
 	 */
-	public static int indexFinder(String input, String match){	
+	public int indexFinder(String input, String match){	
 		if(input.length() == match.length()){ return -1;}
 		if(isPowerOfFive(match)){return input.length() - match.length();}
 		else{
@@ -112,7 +116,7 @@ public class Solution {
 	 * @param str
 	 * @return
 	 */
-	public static boolean isSequenceOfOne(String str) {
+	public boolean isSequenceOfOne(String str) {
 		int num = 0;
 		for (int i = 0; i < str.length(); i++) {
 			if (str.charAt(i) == '1') {
@@ -124,4 +128,25 @@ public class Solution {
 		}
 		return false;
 	}
+
+	@Override
+	public void run() {	
+		getMin(input);
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public int getNumOfPartition() {
+		return numOfPartition;
+	}
+
+	public void setNumOfPartition(int numOfPartition) {
+		this.numOfPartition = numOfPartition;
+	}		
 }
