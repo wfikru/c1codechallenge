@@ -31,7 +31,7 @@ public class SolutionTest {
         String input = "101";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(1, solution.getNumOfPartition());
     }
 
@@ -41,7 +41,7 @@ public class SolutionTest {
         String input = "101101101";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(3, solution.getNumOfPartition());
     }
 
@@ -51,7 +51,7 @@ public class SolutionTest {
         String input = "1111101";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(1, solution.getNumOfPartition());
     }
 
@@ -60,7 +60,7 @@ public class SolutionTest {
         String input = "00000";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(-1, solution.getNumOfPartition());
     }
 
@@ -69,7 +69,7 @@ public class SolutionTest {
         String input = "11111111111111111111111111111111111111111111111111";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(50, solution.getNumOfPartition());
     }
 
@@ -78,7 +78,7 @@ public class SolutionTest {
         String input = "10110001101000101011110000101110110001010";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(-1, solution.getNumOfPartition());
     }
 
@@ -87,7 +87,7 @@ public class SolutionTest {
         String input = "10110001101000101011110000101110110001011";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(2, solution.getNumOfPartition());
     }
 
@@ -96,7 +96,7 @@ public class SolutionTest {
         String input = "111011100110101100101110111";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(5, solution.getNumOfPartition());
     }
 
@@ -105,7 +105,7 @@ public class SolutionTest {
         String input = "001000";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(-1, solution.getNumOfPartition());
     }
 
@@ -114,7 +114,7 @@ public class SolutionTest {
         String input = "000001";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(-1, solution.getNumOfPartition());
     }
 
@@ -123,8 +123,17 @@ public class SolutionTest {
         String input = "110111110101111000011";
         solution.setInput(input);
         thread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         assertEquals(3, solution.getNumOfPartition());
+    }
+    
+    @Test
+    public void test12() throws InterruptedException{
+        String input = "10111001100010000011110111100010000011110111";
+        solution.setInput(input);
+        thread.start();
+        Thread.sleep(100);
+        assertEquals(-1, solution.getNumOfPartition());
     }
 
 }
