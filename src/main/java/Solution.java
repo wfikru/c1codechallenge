@@ -139,13 +139,5 @@ public class Solution{
 			return true;
 		}
 		return false;
-	}
-
-	public int getNumOfPartition() {
-		return numOfPartition;
-	}
-
-	public void setNumOfPartition(int numOfPartition) {
-		this.numOfPartition = numOfPartition;
-	}		
+	}	
 }
