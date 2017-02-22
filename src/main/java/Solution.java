@@ -6,10 +6,7 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-/**
- * @author Fikru
- *
- */
+
 public class Solution{
 	
 	private String regex = "[10]*(10+1)";
