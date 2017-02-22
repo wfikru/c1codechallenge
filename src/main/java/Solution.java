@@ -14,7 +14,6 @@ public class Solution{
 	
 	private String regex = "[10]*(10+1)";
 	private Pattern pattern;
-	private volatile int numOfPartition;
 	
 	public Solution(){
 		pattern = Pattern.compile(regex);
