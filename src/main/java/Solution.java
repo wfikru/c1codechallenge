@@ -10,12 +10,11 @@ import java.util.regex.*;
  * @author Fikru
  *
  */
-public class Solution implements Runnable{
+public class Solution{
 	
 	private String regex = "[10]*(10+1)";
 	private Pattern pattern;
 	private volatile int numOfPartition;
-	private volatile String input;
 	
 	public Solution(){
 		pattern = Pattern.compile(regex);
@@ -30,16 +29,25 @@ public class Solution implements Runnable{
 	 * splits the string in to a matched(left) and unmatched(right) sections.
 	 * if the right section are all '1s', the count will add to numOfPartition
 	 * it then looks for the index of a power of 5 sequence using the left section and the last match from the left section.
-	 * synchronized for concurrent access
+	 * synchronized for concurrent access	 
 	 * @param input
 	 * @return
 	 */
 	public synchronized int getMin(String input) {
-		if(input == null || input.equals("") || input.charAt(0) == '0' || input.charAt(input.length() - 1) == '0'){
-			if(numOfPartition == 0){ numOfPartition -= 1;}
+		return getMin(input,0);
+	}
+	
+	/**overloaded getMin to recursively increment numOfPartition
+	 * @param input
+	 * @param numOfPartition
+	 * @return
+	 */
+	public synchronized int getMin(String input, int numOfPartition) {
+		if(input == null || input.equals("") || input.charAt(0) == '0' || input.charAt(input.length() - 1) == '0'){			
+			if(numOfPartition == 0){numOfPartition = -1;}
 			return numOfPartition;
 		}else if (isPowerOfFive(input)) {
-			return numOfPartition++;
+			return ++numOfPartition;
 		} else {
 			int end = 0;			
 			String left = "";
@@ -69,10 +77,11 @@ public class Solution implements Runnable{
 					numOfPartition = 0;
 				}
 			}
-			return getMin(left);
+			return getMin(left,numOfPartition);
 		}
 	}
-
+	
+	
 	/**checks if the '1' and '0' sequence is a power of 5
 	 * @param str
 	 * @return
@@ -131,19 +140,6 @@ public class Solution implements Runnable{
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void run() {	
-		getMin(input);
-	}
-
-	public String getInput() {
-		return input;
-	}
-
-	public void setInput(String input) {
-		this.input = input;
 	}
 
 	public int getNumOfPartition() {
